@@ -1,4 +1,32 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{#    {{ form_widget(form) }}#}
+
+<div class="form-group mb-4">
+    {{ form_label(form.titre, 'Nom de l\'article', {'label_attr': {'class': 'text-right'}}) }}
+    {{ form_widget(form.titre, {'attr': {'class': 'form-control mt-2'}, 'placeholder': 'Entrez le nom de l\'article'}) }}
+</div>
+<div class="form-group mb-4">
+    {{ form_label(form.description, 'Courte description de l\'article', {'label_attr': {'class': 'text-right'}}) }}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control'}, 'placeholder': 'Entrez une courte description de l\'article'}) }}
+</div>
+{#<div class="form-group mb-4">#}
+{#    {{ form_label(form.descArticle, 'Description de l\'article', {'label_attr': {'class': 'text-right'}}) }}#}
+{#    {{ form_widget(form.descArticle, {'attr': {'class': 'form-control'}, 'placeholder': 'Entrez la description de l\'article', 'rows': '3'}) }}#}
+{#</div>#}
+<div class="form-group mb-4">
+    {{ form_label(form.image, 'Image de l\'article', {'label_attr': {'class': 'text-right'}}) }}
+    {{ form_widget(form.image, {'attr': {'class': 'form-control'}, 'placeholder': 'Entrez l\'URL de l\'image de l\'article'}) }}
+</div>
+<div class="form-group mb-4">
+    {{ form_label(form.prix, 'Prix de l\'article', {'label_attr': {'class': 'text-right'}}) }}
+    {{ form_widget(form.prix, {'attr': {'class': 'form-control'}, 'placeholder': 'Entrez le prix de l\'article'}) }}
+</div>
+{#<div class="form-group mb-4">#}
+{#    {{ form_label(form.idCategorie, 'Catégorie de l\'article', {'label_attr': {'class': 'text-right'}}) }}#}
+{#    {{ form_widget(form.idCategorie, {'attr': {'class': 'form-control'}, 'placeholder': 'Choisissez la catégorie de l\'article'}) }}#}
+{#</div>#}
+
+    <button type="button" data-bs-toggle="modal" data-bs-target="#idAddArticle" class="btn btn-primary mt-4 ms-auto">
+        {{ button_label|default("Ajouter l'article") }}
+    </button>
 {{ form_end(form) }}
