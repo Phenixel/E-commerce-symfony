@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+    <form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="content p-5" style="width: 40%">
+        {% if app.user %}
+        <h1 class="h1 text-center">Déjà connecter</h1>
+        <hr>
+        <div class="mb-3 text-center">
+            Vous êtes déjà connecté sous {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+        {% else %}
+        <h1 class="h1 text-center">Connectez-vous</h1>
+
+        {% if error %}
+            <p class="p text-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+        {% endif %}
+
+        <form class="form mt-4" method="POST" action="{{ path('app_login') }}">
+            <div class="form-group mb-4">
+                <label for="inputEmail" class="text-right">Adresse email</label>
+                <input type="email" class="form-control mt-2" id="inputEmail" name="email" aria-describedby="emailHelp"
+                       placeholder="Entrez votre email" value="{{ last_username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="text-right">Mot de passe</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="inputPassword" name="password"
+                           placeholder="Entrez votre mot de passe" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <a class="password-toggle" data-toggle="password-toggle"><i class="far fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary mt-4 ms-auto">Se connecter</button>
+            </div>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+
+        </form>
+    </div>
+    {% endif %}
+
+
+    {#
+    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+    See https://symfony.com/doc/current/security/remember_me.html
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+    #}
+
+    {#    <button class="btn btn-lg btn-primary" type="submit"> #}
+    {#        Se connecter #}
+    {#    </button> #}
+
+{% endblock %}
