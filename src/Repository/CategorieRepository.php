@@ -40,16 +40,38 @@ class CategorieRepository extends ServiceEntityRepository
     }
 
     public function getArticleParCateg(int $idCateg){
-        $entityManager = $this-> getEntityManager();
+        $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
-            'SELECT a.id, a.titre, a.slug, a.description, a.image, a.prix, c.titre as categorie 
-            FROM App\Entity\Article as a
-            INNER JOIN App\Entity\Categorie as c ON a.id = c.id WHERE c.id = :id'
-        )->setParameters(array('id' => $idCateg));
+        // Récupérer la catégorie correspondante à l'id donné
+        $categorie = $entityManager->getRepository(Categorie::class)->find($idCateg);
 
-        return $query->getResult();
+        // Vérifier si la catégorie existe
+        if (!$categorie) {
+            throw $this->createNotFoundException('La catégorie n\'existe pas');
+        }
+
+        // Récupérer la collection d'articles associés à cette catégorie
+        $articles = $categorie->getArticles();
+
+        // Initialiser un tableau pour stocker les informations des articles
+        $articlesData = [];
+
+        // Boucler sur la collection d'articles pour extraire les informations souhaitées
+        foreach ($articles as $article) {
+            $articlesData[] = [
+                'id' => $article->getId(),
+                'titre' => $article->getTitre(),
+                'slug' => $article->getSlug(),
+                'description' => $article->getDescription(),
+                'image' => $article->getImage(),
+                'prix' => $article->getPrix(),
+                'categorie' => $article->getIdCateg()->getTitre()
+            ];
+        }
+
+        return $articlesData;
     }
+
 
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
