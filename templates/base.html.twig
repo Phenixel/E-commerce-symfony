@@ -41,17 +41,30 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="">A propos</a>
                 </li>
+                {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Administration
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" aria-current="page" href="">Interface d'administration</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <a class="dropdown-item" aria-current="page" href="{{ path('app_article_new') }}">Ajouter un article</a>
+                        <a class="dropdown-item" aria-current="page" href="">Liste des utilisateurs</a>
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
         </div>
-        <?php if (isset($_SESSION['user'])): ?>
-        <button type="button" class="btn btn-primary" id="btn-user-infos" data-bs-container="body" data-bs-toggle="popover" data-bs-title="Vos informations" data-bs-placement="bottom" data-bs-content="Nom : <?= $_SESSION['user']["name"] ?> | Mail : <?= $_SESSION['user']["email"] ?>">
+        {% if app.user %}
+        <button type="button" class="btn btn-primary" id="btn-user-infos" data-bs-container="body" data-bs-toggle="popover" data-bs-title="Vos informations" data-bs-placement="bottom" data-bs-content="{{ app.user.userIdentifier }}">
         <i class="fa fa-solid fa-user"></i>
         </button>
-        <a class="user ico_nav" href="<?= BASE_DIR ?>/utilisateurs/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-        <?php else: ?>
-        <a type="button" class="btn btn-primary m-3" href="<?= BASE_DIR ?>/utilisateurs/signup">S'enregistrer</a>
-        <a type="button" class="btn btn-primary" href="<?= BASE_DIR ?>/utilisateurs/login">Se connecter</a>
-        <?php endif; ?>
+        <a class="user ico_nav" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
+        {% else %}
+{#        <a type="button" class="btn btn-primary m-3" href="">S'enregistrer</a>#}
+        <a type="button" class="btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
+        {% endif %}
         <a class="pannier ico_nav position-relative" href="<?= BASE_DIR ?>/paniers">
             <i class="fa fa-cart-shopping"></i>
             <?php if (count($_SESSION['cart']) != 0 ): ?>

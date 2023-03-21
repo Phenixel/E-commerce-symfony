@@ -52,26 +52,26 @@ class AppFixtures extends Fixture
             $manager->flush();
         }
 
-        $tabCateg = ['Smartphone, Tablette, Montre, TV'];
+        $tabCateg = ['Smartphone', 'Tablette', 'Montre', 'TV'];
 
         foreach ($tabCateg as $categ){
             $cat = new Categorie();
             $cat->setTitre($categ);
 
-            $manager->persist($user);
+            $manager->persist($cat);
             $manager->flush();
         }
 
-        $tabNames = [
-            ''
-        ];
-
-        foreach ($tabNames as $categ){
-            $cat = new Categorie();
-            $cat->setTitre($categ);
-
-            $manager->persist($user);
-            $manager->flush();
-        }
+//        $tabNames = [
+//            ''
+//        ];
+//
+//        foreach ($tabNames as $categ){
+//            $cat = new Categorie();
+//            $cat->setTitre($categ);
+//
+//            $manager->persist($user);
+//            $manager->flush();
+//        }
     }
 }

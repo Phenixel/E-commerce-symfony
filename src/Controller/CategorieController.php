@@ -24,6 +24,8 @@ class CategorieController extends AbstractController
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategorieRepository $categorieRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
@@ -41,16 +43,21 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_categorie_show', methods: ['GET'])]
-    public function show(Categorie $categorie): Response
+    public function show(Categorie $categorie, CategorieRepository $categorieRepository, $id): Response
     {
+        $lesArticles = $categorieRepository->getArticleParCateg($id);
+
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
+            'articles' => $lesArticles,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 

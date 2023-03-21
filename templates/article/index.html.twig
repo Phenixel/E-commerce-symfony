@@ -8,13 +8,13 @@
             <video id="video_bg" class="video-player img-fluid" autoplay disableremoteplayback="" style="width: 100%; height: 100%;" spellcheck="false" muted>
                 <source src="{{ asset('medias/image_fond_flip.webm') }}" type="video/mp4">
             </video>
-            <h1 class="video-overlay h1-lst_articles">Liste des <br> smartphones</h1>
+            <h1 class="video-overlay h1-lst_articles">Liste des <br> articles</h1>
         </div>
 
         <div class="container">
             <div class="text-center m-4">
                 {% for categorie in categories %}
-                    <a href="{{ path('app_category_boutique', {'id': categorie.id}) }}" type="button" class="btn btn-primary category-button">{{ categorie.nom }}</a>
+                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" type="button" class="btn btn-primary category-button">{{ categorie.titre }}</a>
                 {% endfor %}
             </div>
 

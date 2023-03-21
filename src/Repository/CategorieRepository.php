@@ -39,6 +39,18 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
+    public function getArticleParCateg(int $idCateg){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a.id, a.titre, a.slug, a.description, a.image, a.prix, c.titre as categorie 
+            FROM App\Entity\Article as a
+            INNER JOIN App\Entity\Categorie as c ON a.id = c.id WHERE c.id = :id'
+        )->setParameters(array('id' => $idCateg));
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */
