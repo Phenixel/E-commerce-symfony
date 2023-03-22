@@ -61,18 +61,10 @@
         </button>
         <a class="user ico_nav" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
         {% else %}
-{#        <a type="button" class="btn btn-primary m-3" href="">S'enregistrer</a>#}
         <a type="button" class="btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
         {% endif %}
         <a class="pannier ico_nav position-relative" href="{{ path('app_cart') }}">
             <i class="fa fa-cart-shopping"></i>
-            <?php if (count($_SESSION['cart']) != 0 ): ?>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <?php
-                    echo count($_SESSION['cart']);
-                ?>
-                <span class="visually-hidden">Article dans le panier</span>
-                <?php endif; ?>
         </a>
     </div>
 </nav>
