@@ -48,7 +48,7 @@ class CategorieController extends AbstractController
         $lesArticles = $categorieRepository->getArticleParCateg($id);
 
         return $this->render('categorie/show.html.twig', [
-            'categorie' => $categorie,
+            'categories' => $categorieRepository->findAll(),
             'articles' => $lesArticles,
         ]);
     }

@@ -3,24 +3,42 @@
 {% block title %}Categorie{% endblock %}
 
 {% block body %}
-    <h1>Categorie</h1>
+    <div class="content">
+        <div class="container">
+            <div class="text-center m-4">
+                {% for categorie in categories %}
+                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" type="button" class="btn btn-primary category-button">{{ categorie.titre }}</a>
+                {% endfor %}
+            </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ categorie.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ categorie.titre }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div id="list-of-article" class="row row-cols-auto" style="justify-content: center;">
+                <!-- Liste des articles selon les catégories -->
+                {% for article in articles %}
+                    <div class="col">
+                        <a href="{{ path('app_article_show', {'id': article.id}) }}" style="text-decoration: none; color: black">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="{{ asset(article.image) }}" alt="{{ article.titre }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ article.titre }}</h5>
+                                    <p class="card-text content-shortDesc">
+                                        {% set maxLength = 60 %}
+                                        {% set truncatedString = article.description|slice(0, maxLength)|split(' ')|slice(0, -1)|join(' ') %}
+                                        {% if article.description|length > maxLength %}
+                                            {{ truncatedString }}...
+                                        {% else %}
+                                            {{ article.description }}
+                                        {% endif %}
+                                    </p>
 
-    <a href="{{ path('app_categorie_index') }}">back to list</a>
-
-    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
-
-    {{ include('categorie/_delete_form.html.twig') }}
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item h6">{{ article.prix }} €</li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
