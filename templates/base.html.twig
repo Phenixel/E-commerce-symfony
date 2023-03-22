@@ -43,14 +43,14 @@
                 </li>
                 {% if is_granted("ROLE_ADMIN") %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'app_back_office' or app.request.attributes.get('_route') == 'app_article_new' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Administration
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" aria-current="page" href="">Interface d'administration</a></li>
+                        <li><a class="dropdown-item" aria-current="page" href="{{ path('app_back_office') }}">Interface d'administration</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <a class="dropdown-item" aria-current="page" href="{{ path('app_article_new') }}">Ajouter un article</a>
-                        <a class="dropdown-item" aria-current="page" href="">Liste des utilisateurs</a>
+{#                        <a class="dropdown-item" aria-current="page" href="">Liste des utilisateurs</a>#}
                     </ul>
                 </li>
                 {% endif %}

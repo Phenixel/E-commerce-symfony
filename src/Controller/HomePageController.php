@@ -19,4 +19,15 @@ class HomePageController extends AbstractController
             'categories' => $categorieRepository->findAll(),
         ]);
     }
+
+    #[Route('/back_office', name: 'app_back_office', methods: ['GET'])]
+    public function backoffice(ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        return $this->render('home_page/back_office.html.twig', [
+            'articles' => $articleRepository->findAll(),
+            'categories' => $categorieRepository->findAll(),
+        ]);
+    }
 }
