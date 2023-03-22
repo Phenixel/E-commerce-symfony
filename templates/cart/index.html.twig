@@ -91,9 +91,8 @@
 
         {% if total > 0 %}
             <div class="d-flex">
-                <button onclick="location.href='<?= BASE_DIR ?>/paniers/checkout'" type="button" class="btn btn-primary"
-                        style="max-height: 45px">Confirmer le panier
-                </button>
+                <a href="{{ path('app_cart_checkout') }}" type="button" class="btn btn-primary"
+                   style="max-height: 45px">Confirmer le panier</a>
                 <div class="prix ms-auto">
                     <h4 class="h4 text-right" style="text-align: right">{{ total }} € (HT)</h4>
                     <h4 class="h4 text-right">{{ total * 1.2 }} € (TTC)</h4>

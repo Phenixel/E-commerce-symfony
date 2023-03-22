@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation{% endblock %}
+
+{% block body %}
+    <main class="content">
+        <h1 class="display-1 h1 text-center">Checkout</h1>
+        <hr class="mb-5">
+        {% if total > 0 %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% endif %}
+            {% for element in dataPanier %}
+                <tr>
+                    <th scope="row"><a href="{{ path('app_article_show', {'id': element.article.id}) }}"
+                                       style="text-decoration: none; color: #00002d"><img
+                                    src="{{ element.article.image }}" alt="{{ element.article.titre }}"></a></th>
+                    <th scope="row"><a href="{{ path('app_article_show', {'id': element.article.id}) }}"
+                                       style="text-decoration: none; color: #00002d">{{ element.article.titre }}</a>
+                    </th>
+                    <td><p>{{ element.quantite }}</p></td>
+                    <td>
+                        <p>{{ element.article.prix }}€ x {{ element.quantite }}</p>
+                        <br>
+                        <p class="fw-bolder">{{ element.article.prix * element.quantite }}€</p>
+                    </td>
+                </tr>
+
+            {% else %}
+                <div class="text-center">
+                    <h5 class="h5 text-center">Le panier est vide.</h5>
+                    <a href="{{ path('app_article_index') }}" type="button" class="btn btn-primary m-5">Retourner à la
+                        boutique</a>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if total > 0 %}
+            <div class="d-flex">
+                <div class="prix ms-auto">
+                    <h4 class="h4 text-right" style="text-align: right">{{ total }} € (HT)</h4>
+                    <h4 class="h4 text-right">{{ total * 1.2 }} € (TTC)</h4>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -31,6 +31,26 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
     }
 
+    #[Route('/checkout', name: 'app_cart_checkout')]
+    public function checkout(SessionInterface $session, ArticleRepository $articleRepository): Response
+    {
+        $panier = $session->get("panier", []);
+
+        $dataPanier = [];
+        $total = 0;
+
+        foreach ($panier as $id => $quantite) {
+            $article = $articleRepository->find($id);
+            $dataPanier[] = [
+                "article" => $article,
+                "quantite" => $quantite
+            ];
+            $total += $article->getPrix() * $quantite;
+        }
+
+        return $this->render('cart/checkout.html.twig', compact("dataPanier", "total"));
+    }
+
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
     public function add(Article $article, SessionInterface $session): Response
     {
