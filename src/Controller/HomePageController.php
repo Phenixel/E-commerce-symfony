@@ -20,6 +20,30 @@ class HomePageController extends AbstractController
         ]);
     }
 
+    #[Route('/a-propos', name: 'page_about')]
+    public function apropos(): Response
+    {
+        return $this->render('home_page/apropos.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/cgv', name: 'page_cgv')]
+    public function cgv(): Response
+    {
+        return $this->render('home_page/cgv.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/cgu', name: 'page_cgu')]
+    public function cgu(): Response
+    {
+        return $this->render('home_page/cgu.html.twig', [
+
+        ]);
+    }
+
     #[Route('/back_office', name: 'app_back_office', methods: ['GET'])]
     public function backoffice(ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {
