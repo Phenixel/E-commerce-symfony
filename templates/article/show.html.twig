@@ -13,7 +13,7 @@
                     <div class="btn-group" role="group" aria-label="Quantité">
 {#                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idAddToCart" onclick="prepareConfirm($('#quantite').val())">Ajouter au panier <i class="fa fa-cart-shopping"></i></button>#}
                         <button type="button" class="btn btn-primary" onclick="location.href='{{ path('app_cart_add', {id: article.id}) }}'">Ajouter au panier <i class="fa fa-cart-shopping"></i></button>
-                        <input value="1" min="1" type="number" name="quantite" id="quantite" class="form-control form-control-sm" style="width: 40%;">
+{#                        <input value="1" min="1" type="number" name="quantite" id="quantite" class="form-control form-control-sm" style="width: 40%;">#}
                     </div>
                 </div>
             </div>
@@ -60,39 +60,39 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        function prepareConfirm(quantite) {
-            $('#quantite-affichage').text(quantite);
+{#    <script>#}
+{#        function prepareConfirm(quantite) {#}
+{#            $('#quantite-affichage').text(quantite);#}
 
-            const prix = {{ article.prix }};
-            const prixTotal = quantite * prix;
-            $('#prix-total').text(prixTotal + " €");
-        }
+{#            const prix = {{ article.prix }};#}
+{#            const prixTotal = quantite * prix;#}
+{#            $('#prix-total').text(prixTotal + " €");#}
+{#        }#}
 
-        function addToCart(articleId){
-            console.log("click");
-            $.ajax({
-                url: '{{ path('app_cart_add', {id: article.id}) }}',
-                type: 'POST',
-                data: {
-                    articleId: articleId,
-                    quantite: $('#quantite').val()
-                },
-                success: function(response){
-                    {#Swal.fire({#}
-                    {#    position: 'center',#}
-                    {#    icon: 'success',#}
-                    {#    title: 'Article ajouté',#}
-                    {#    showConfirmButton: false,#}
-                    {#    timer: 1000#}
-                    {#})#}
-                    {#setTimeout(function() {#}
-                    {#    window.location.replace("{{ path('app_cart') }}");#}
-                    {#}, 1200);#}
-                    console.log("c'est passer");
-                },
-            });
-        }
+{#        function addToCart(articleId){#}
+{#            console.log("click");#}
+{#            $.ajax({#}
+{#                url: '{{ path('app_cart_add', {id: article.id}) }}',#}
+{#                type: 'POST',#}
+{#                data: {#}
+{#                    articleId: articleId,#}
+{#                    quantite: $('#quantite').val()#}
+{#                },#}
+{#                success: function(response){#}
+{#                    #}{#Swal.fire(#}{#}#}
+{#                    #}{#    position: 'center',#}
+{#                    #}{#    icon: 'success',#}
+{#                    #}{#    title: 'Article ajouté',#}
+{#                    #}{#    showConfirmButton: false,#}
+{#                    #}{#    timer: 1000#}
+{#                    #}{#})#}
+{#                    #}{#setTimeout(function() #}{#}#}
+{#                    #}{#    window.location.replace("{{ path('app_cart') }}");#}
+{#                    #}{#}, 1200);#}
+{#                    console.log("c'est passer");#}
+{#                },#}
+{#            });#}
+{#        }#}
 
-    </script>
+{#    </script>#}
 {% endblock %}
