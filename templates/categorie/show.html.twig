@@ -38,6 +38,9 @@
                         </a>
                     </div>
                 {% endfor %}
+                {% if articles is empty %}
+                    <h3>Aucun article dans cette categorie</h3>
+                {% endif %}
             </div>
         </div>
     </div>

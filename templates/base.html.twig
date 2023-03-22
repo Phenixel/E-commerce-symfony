@@ -50,7 +50,6 @@
                         <li><a class="dropdown-item" aria-current="page" href="{{ path('app_back_office') }}">Interface d'administration</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <a class="dropdown-item" aria-current="page" href="{{ path('app_article_new') }}">Ajouter un article</a>
-{#                        <a class="dropdown-item" aria-current="page" href="">Liste des utilisateurs</a>#}
                     </ul>
                 </li>
                 {% endif %}
@@ -65,7 +64,7 @@
 {#        <a type="button" class="btn btn-primary m-3" href="">S'enregistrer</a>#}
         <a type="button" class="btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
         {% endif %}
-        <a class="pannier ico_nav position-relative" href="<?= BASE_DIR ?>/paniers">
+        <a class="pannier ico_nav position-relative" href="{{ path('app_cart') }}">
             <i class="fa fa-cart-shopping"></i>
             <?php if (count($_SESSION['cart']) != 0 ): ?>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <main class="content">
+        <h1 class="display-1 h1 text-center">Panier</h1>
+        <hr class="mb-5">
+        {% if total > 0 %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% endif %}
+            {% for element in dataPanier %}
+                <tr>
+                    <th scope="row"><a href="{{ path('app_article_show', {'id': element.article.id}) }}"
+                                       style="text-decoration: none; color: #00002d"><img
+                                    src="{{ element.article.image }}" alt="{{ element.article.titre }}"></a></th>
+                    <th scope="row"><a href="{{ path('app_article_show', {'id': element.article.id}) }}"
+                                       style="text-decoration: none; color: #00002d">{{ element.article.titre }}</a>
+                    </th>
+                    <td><p>{{ element.quantite }}</p></td>
+                    <td>
+                        <p>{{ element.article.prix }}€ x {{ element.quantite }}</p>
+                        <br>
+                        <p class="fw-bolder">{{ element.article.prix * element.quantite }}€</p>
+                    </td>
+                    <td>
+                        <button id="add_{{ element.article.id }}" type="button" class="btn btn-success"
+                                onclick="location.href='{{ path('app_cart_add', {id: element.article.id}) }}'"><i
+                                    class="fa-sharp fa-solid fa-cart-plus"></i></button>
+                        <button id="remove_{{ element.article.id }}" type="button" class="btn btn-warning"
+                                onclick="location.href='{{ path('app_cart_remove', {id: element.article.id}) }}'"><i
+                                    class="fa-solid fa-cart-arrow-down"></i></button>
+                        <button id="delete_{{ element.article.id }}" type="button" class="btn btn-danger"
+                                data-bs-toggle="modal" data-bs-target="#idConfirmDelete{{ element.article.id }}"><i
+                                    class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+
+                <!-- Confirmation -->
+                <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+                     id="idConfirmDelete{{ element.article.id }}" tabindex="-1" aria-labelledby="confirmDelete"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="confirmDelete">Confirmer la suppression ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{ element.article.image }}"
+                                             alt="image article {{ element.article.titre }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h2 class="h2">{{ element.article.titre }}</h2>
+                                        <h5>Quantité : {{ element.quantite }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                <button type="button" class="btn btn-danger"
+                                        onclick="location.href='{{ path('app_cart_delete', {id: element.article.id}) }}'">
+                                    Confirmer <i class="fa-regular fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <h5 class="h5 text-center">Le panier est vide.</h5>
+                    <a href="{{ path('app_article_index') }}" type="button" class="btn btn-primary m-5">Retourner à la
+                        boutique</a>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if total > 0 %}
+            <div class="d-flex">
+                <button onclick="location.href='<?= BASE_DIR ?>/paniers/checkout'" type="button" class="btn btn-primary"
+                        style="max-height: 45px">Confirmer le panier
+                </button>
+                <div class="prix ms-auto">
+                    <h4 class="h4 text-right" style="text-align: right">{{ total }} € (HT)</h4>
+                    <h4 class="h4 text-right">{{ total * 1.2 }} € (TTC)</h4>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
