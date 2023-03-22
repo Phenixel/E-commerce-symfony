@@ -29,7 +29,7 @@
                     <p>{{ article.description }}</p>
                 </td>
                 <td style="width: 10%">
-                    <p>{{ article.prix }},00 €</p>
+                    <p>{{ article.prix }} €</p>
                 </td>
                 <td style="width: 15%">
                     <button id="{{ article.id }}" type="button" class="btn btn-warning" onclick="location.href='{{ path('app_article_edit', {'id': article.id}) }}'"><i class="fa-solid fa-pen"></i></button>

@@ -24,7 +24,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArticleRepository $articleRepository): Response
+    public function new(Request $request, ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -41,6 +41,7 @@ class ArticleController extends AbstractController
         return $this->renderForm('article/new.html.twig', [
             'article' => $article,
             'form' => $form,
+            'categories' => $categorieRepository->findAll(),
         ]);
     }
 
@@ -53,7 +54,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
+    public function edit(Request $request, Article $article, ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -69,6 +70,7 @@ class ArticleController extends AbstractController
         return $this->renderForm('article/edit.html.twig', [
             'article' => $article,
             'form' => $form,
+            'categories' => $categorieRepository->findAll(),
         ]);
     }
 
